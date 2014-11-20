@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true");
+                URL url = new URL("http://54.186.125.132:1337/device/checkConnect");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(10000);
                 connection.setReadTimeout(10000);
@@ -87,6 +87,7 @@ public class MainActivity extends ActionBarActivity {
                 connection.connect();
                 int response = connection.getResponseCode();
                 Log.d("i don`t know...", "The response is: " + response);
+                System.out.print("\ntry to get input stream\n");
                 InputStream is = connection.getInputStream();
                 Scanner scanner = new Scanner(is);
                 String str = "";
@@ -95,12 +96,10 @@ public class MainActivity extends ActionBarActivity {
                     str = str.concat(scanner.nextLine());
                 }
                 System.out.print("\n" + str + "\n");
-                JSONObject object = new JSONObject(str);
-                JSONArray names = object.names();
+                //JSONObject object = new JSONObject(str);
+                //JSONArray names = object.names();
                 return str;
             } catch (java.io.IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return "notWorking";
